@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishnu Auto - Bike Repair & Service Center</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">🏍️ Vishnu Auto</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="customer-dashboard.html" class="nav-link">Customer Portal</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>🏍️ Vishnu Auto</h1>
+            <p class="hero-subtitle">Bike Repair & Service Center</p>
+            <p>Your trusted partner for professional bike servicing and repairs. Quality service, competitive prices, and customer satisfaction guaranteed.</p>
+            <div class="hero-buttons">
+                <button onclick="window.location.href='customer-dashboard.html'" class="btn btn-primary">
+                    Book Service
+                </button>
+                <button onclick="window.location.href='customer-dashboard.html#products'" class="btn btn-secondary">
+                    View Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="service-section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="service-grid">
+                <!-- Service Card 1 -->
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Basic Service</h3>
+                    <p>Complete oil change, basic inspection, and chain adjustment for optimal performance.</p>
+                    <p class="price">₹500</p>
+                    <button onclick="selectService(1)" class="btn btn-primary">Select Package</button>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Standard Service</h3>
+                    <p>Full inspection, brake check, tire pressure, and comprehensive maintenance package.</p>
+                    <p class="price">₹1,200</p>
+                    <button onclick="selectService(2)" class="btn btn-primary">Select Package</button>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="service-card">
+                    <div class="service-icon">🌟</div>
+                    <h3>Premium Service</h3>
+                    <p>Complete service with engine tuning, professional washing, and polishing for showroom finish.</p>
+                    <p class="price">₹2,500</p>
+                    <button onclick="selectService(3)" class="btn btn-primary">Select Package</button>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Express Service</h3>
+                    <p>Quick check, oil top-up, and basic cleaning for busy schedules.</p>
+                    <p class="price">₹350</p>
+                    <button onclick="selectService(4)" class="btn btn-primary">Select Package</button>
+                </div>
+
+                <!-- Repair & Parts Card -->
+                <div class="service-card">
+                    <div class="service-icon">🔩</div>
+                    <h3>Repair & Parts</h3>
+                    <p>Genuine spare parts, expert repairs, and warranty on all services provided.</p>
+                    <p class="price">Custom Quote</p>
+                    <button onclick="window.location.href='customer-dashboard.html#products'" class="btn btn-secondary">Browse Parts</button>
+                </div>
+
+                <!-- Add-ons Card -->
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Add-ons</h3>
+                    <p>Professional washing, polishing, and detailing services for your bike.</p>
+                    <p class="price">Starting ₹200</p>
+                    <button onclick="showAddons()" class="btn btn-secondary">View Add-ons</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Vishnu Auto?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🔧</div>
+                    <h3>Expert Mechanics</h3>
+                    <p>Certified professionals with years of experience in bike servicing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Quality Assurance</h3>
+                    <p>Genuine parts and warranty on all services provided.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Quick Service</h3>
+                    <p>Fast turnaround time without compromising on quality.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Competitive Pricing</h3>
+                    <p>Best prices in town with transparent billing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Buttons Section -->
+    <section class="login-section">
+        <div class="container">
+            <h2 class="section-title">Access Your Dashboard</h2>
+            <div class="login-buttons">
+                <button onclick="window.location.href='customer-dashboard.html'" class="btn btn-primary">
+                    👤 Customer Login
+                </button>
+                <button onclick="window.location.href='login.html'" class="btn btn-secondary">
+                    🔐 Admin / Mechanic Login
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Service Selection -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('serviceModal')">&times;</span>
+            <h2>Select Service Package</h2>
+            <form id="serviceSelectionForm">
+                <div class="form-group">
+                    <label class="form-label">Choose Package:</label>
+                    <select id="packageSelect" class="form-control">
+                        <option value="1">Basic Service - ₹500</option>
+                        <option value="2">Standard Service - ₹1,200</option>
+                        <option value="3">Premium Service - ₹2,500</option>
+                        <option value="4">Express Service - ₹350</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Proceed to Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add-ons Modal -->
+    <div id="addonsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('addonsModal')">&times;</span>
+            <h2>Add-on Services</h2>
+            <div class="addons-list">
+                <div class="addon-item">
+                    <h4>Professional Washing</h4>
+                    <p>Complete exterior and interior cleaning</p>
+                    <p class="price">₹200</p>
+                    <button onclick="addToCart(7)" class="btn btn-primary">Add to Cart</button>
+                </div>
+                <div class="addon-item">
+                    <h4>Polishing & Waxing</h4>
+                    <p>Restore shine and protect paint</p>
+                    <p class="price">₹350</p>
+                    <button onclick="addToCart(8)" class="btn btn-primary">Add to Cart</button>
+                </div>
+                <div class="addon-item">
+                    <h4>Detailing Service</h4>
+                    <p>Deep cleaning and restoration</p>
+                    <p class="price">₹500</p>
+                    <button onclick="addToCart(9)" class="btn btn-primary">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919876543210" class="whatsapp-btn" target="_blank">
+        💬
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🏍️ Vishnu Auto</h3>
+                    <p>Your trusted bike service center</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="customer-dashboard.html">Customer Portal</a></li>
+                        <li><a href="login.html">Admin Login</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📞 +91 98765 43210</p>
+                    <p>📧 info@vishnuauto.com</p>
+                    <p>📍 123 Service Road, Bike City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Vishnu Auto. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // Additional home page specific functions
+        function selectService(packageId) {
+            localStorage.setItem('selectedPackage', packageId);
+            window.location.href = 'customer-dashboard.html';
+        }
+
+        function showAddons() {
+            openModal('addonsModal');
+        }
+
+        // Handle service selection form
+        document.getElementById('serviceSelectionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const packageId = document.getElementById('packageSelect').value;
+            closeModal('serviceModal');
+            window.location.href = 'customer-dashboard.html';
+        });
+
+        // Add animations to hero section on load
+        window.addEventListener('load', function() {
+            const heroContent = document.querySelector('.hero-content');
+            heroContent.style.animation = 'fadeInUp 1s ease';
+        });
+    </script>
+</body>
+</html>

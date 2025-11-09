@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Vishnu Auto</title>
+    <link rel="stylesheet" href="css/styles.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">🏍️ Vishnu Auto</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#booking" class="nav-link">Book Service</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#cart" class="nav-link">Cart (<span class="cart-count">0</span>)</a></li>
+                <li><a href="index.html" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>👤 Customer Dashboard</h1>
+                <p>Welcome back! Book your service and browse our products</p>
+            </div>
+
+            <!-- Booking Section -->
+            <section id="booking" class="booking-section">
+                <h2 class="section-title">Book Your Service</h2>
+                <div class="booking-container">
+                    <form id="bookingForm" class="booking-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Your Name *</label>
+                                <input type="text" name="customerName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" name="customerPhone" class="form-control" pattern="[0-9]{10}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" name="customerEmail" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Bike Model</label>
+                                <input type="text" name="bikeModel" class="form-control" placeholder="e.g., Honda Activa">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Service Date *</label>
+                                <input type="date" name="bookingDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Preferred Time *</label>
+                                <select name="bookingTime" class="form-control" required>
+                                    <option value="">Select Time</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Select Service Package *</label>
+                            <div class="service-packages">
+                                <div class="package-card" data-package="1" onclick="selectPackage(1)">
+                                    <div class="package-header">
+                                        <h4>Basic Service</h4>
+                                        <span class="package-price">₹500</span>
+                                    </div>
+                                    <ul class="package-features">
+                                        <li>✓ Oil Change</li>
+                                        <li>✓ Basic Inspection</li>
+                                        <li>✓ Chain Adjustment</li>
+                                        <li>⏱️ 2 hours</li>
+                                    </ul>
+                                </div>
+                                <div class="package-card" data-package="2" onclick="selectPackage(2)">
+                                    <div class="package-header">
+                                        <h4>Standard Service</h4>
+                                        <span class="package-price">₹1,200</span>
+                                    </div>
+                                    <ul class="package-features">
+                                        <li>✓ Oil Change</li>
+                                        <li>✓ Full Inspection</li>
+                                        <li>✓ Brake Check</li>
+                                        <li>✓ Tire Pressure</li>
+                                        <li>⏱️ 4 hours</li>
+                                    </ul>
+                                </div>
+                                <div class="package-card" data-package="3" onclick="selectPackage(3)">
+                                    <div class="package-header">
+                                        <h4>Premium Service</h4>
+                                        <span class="package-price">₹2,500</span>
+                                    </div>
+                                    <ul class="package-features">
+                                        <li>✓ Complete Service</li>
+                                        <li>✓ Engine Tuning</li>
+                                        <li>✓ Professional Washing</li>
+                                        <li>✓ Polishing</li>
+                                        <li>⏱️ 6 hours</li>
+                                    </ul>
+                                </div>
+                                <div class="package-card" data-package="4" onclick="selectPackage(4)">
+                                    <div class="package-header">
+                                        <h4>Express Service</h4>
+                                        <span class="package-price">₹350</span>
+                                    </div>
+                                    <ul class="package-features">
+                                        <li>✓ Quick Check</li>
+                                        <li>✓ Oil Top-up</li>
+                                        <li>✓ Basic Cleaning</li>
+                                        <li>⏱️ 1 hour</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <input type="hidden" name="servicePackage" id="selectedPackage" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea name="notes" class="form-control" rows="3" placeholder="Any specific requirements or issues..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Book Service</span>
+                            <span class="loading" style="display: none;"></span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products" class="products-section">
+                <h2 class="section-title">Browse Products</h2>
+                <div class="product-filters">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                    <button class="filter-btn" onclick="filterProducts('Oil')">Engine Oil</button>
+                    <button class="filter-btn" onclick="filterProducts('Brakes')">Brakes</button>
+                    <button class="filter-btn" onclick="filterProducts('Filters')">Filters</button>
+                    <button class="filter-btn" onclick="filterProducts('Maintenance')">Maintenance</button>
+                </div>
+                <div class="product-grid" id="productGrid">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Cart Section -->
+            <section id="cart" class="cart-section">
+                <h2 class="section-title">Shopping Cart</h2>
+                <div class="cart-container">
+                    <div class="cart-items" id="cartItems">
+                        <p class="empty-cart">Your cart is empty</p>
+                    </div>
+                    <div class="cart-summary">
+                        <div class="cart-total" id="cartTotal">Total: ₹0</div>
+                        <button onclick="proceedToCheckout()" class="btn btn-primary">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Booking History Section -->
+            <section id="history" class="history-section">
+                <h2 class="section-title">Your Booking History</h2>
+                <div class="booking-history" id="bookingHistory">
+                    <p class="no-bookings">No bookings yet</p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('successModal')">&times;</span>
+            <h2>✅ Booking Successful!</h2>
+            <p>Your service has been booked successfully.</p>
+            <p>Booking details and bill will be sent to your WhatsApp.</p>
+            <div class="booking-summary" id="bookingSummary">
+                <!-- Booking summary will be inserted here -->
+            </div>
+            <div class="modal-actions">
+                <button onclick="downloadBill()" class="btn btn-secondary">Download Bill</button>
+                <button onclick="closeModal('successModal')" class="btn btn-primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919876543210" class="whatsapp-btn" target="_blank">
+        💬
+    </a>
+
+    <script src="js/main.js"></script>
+    <script>
+        let selectedPackageId = null;
+
+        // Initialize customer dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            loadBookingHistory();
+            updateCartDisplay();
+            
+            // Set minimum date to today
+            const dateInput = document.querySelector('input[name="bookingDate"]');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+        });
+
+        // Load products from the main products array
+        function loadProducts() {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = createProductCard(product);
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Create product card element
+        function createProductCard(product) {
+            const div = document.createElement('div');
+            div.className = 'product-card';
+            div.dataset.category = product.category;
+            div.innerHTML = `
+                <div class="product-image">
+                    🏍️
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <p class="product-price">₹${product.price}</p>
+                    <p class="product-stock">Stock: ${product.stock}</p>
+                    <button onclick="addToCart(${product.id})" class="btn btn-primary">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+            return div;
+        }
+
+        // Filter products
+        function filterProducts(category) {
+            const productCards = document.querySelectorAll('.product-card');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            // Update active button
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter products
+            productCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Select service package
+        function selectPackage(packageId) {
+            selectedPackageId = packageId;
+            
+            // Update UI
+            document.querySelectorAll('.package-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-package="${packageId}"]`).classList.add('selected');
+            
+            // Set hidden input value
+            document.getElementById('selectedPackage').value = packageId;
+        }
+
+        // Handle booking form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedPackageId) {
+                showNotification('Please select a service package', 'error');
+                return;
+            }
+
+            const formData = new FormData(this);
+            const bookingData = {
+                name: formData.get('customerName'),
+                phone: formData.get('customerPhone'),
+                email: formData.get('customerEmail'),
+                bikeModel: formData.get('bikeModel'),
+                date: formData.get('bookingDate'),
+                time: formData.get('bookingTime'),
+                notes: formData.get('notes'),
+                packageId: selectedPackageId
+            };
+
+            // Process booking
+            const booking = bookService(selectedPackageId, bookingData);
+            
+            if (booking) {
+                // Show success modal
+                showBookingSuccess(booking);
+                // Reset form
+                this.reset();
+                selectedPackageId = null;
+                document.querySelectorAll('.package-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+            }
+        });
+
+        // Show booking success modal
+        function showBookingSuccess(booking) {
+            const packageInfo = servicePackages.find(p => p.id === booking.packageId);
+            const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalAmount = packageInfo.price + cartTotal;
+
+            const summaryHTML = `
+                <div class="booking-details">
+                    <p><strong>Booking ID:</strong> #${booking.id}</p>
+                    <p><strong>Name:</strong> ${booking.customerName}</p>
+                    <p><strong>Phone:</strong> ${booking.customerPhone}</p>
+                    <p><strong>Date:</strong> ${booking.date}</p>
+                    <p><strong>Time:</strong> ${booking.time}</p>
+                    <p><strong>Service:</strong> ${packageInfo.name}</p>
+                    <p><strong>Service Price:</strong> ₹${packageInfo.price}</p>
+                    <p><strong>Additional Items:</strong> ₹${cartTotal}</p>
+                    <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
+                </div>
+            `;
+
+            document.getElementById('bookingSummary').innerHTML = summaryHTML;
+            openModal('successModal');
+        }
+
+        // Load booking history
+        function loadBookingHistory() {
+            const bookingHistory = document.getElementById('bookingHistory');
+            const bookings = JSON.parse(localStorage.getItem('vishnuAutoBookings')) || [];
+            
+            if (bookings.length === 0) {
+                bookingHistory.innerHTML = '<p class="no-bookings">No bookings yet</p>';
+                return;
+            }
+
+            bookingHistory.innerHTML = '';
+            bookings.forEach(booking => {
+                const bookingCard = createBookingHistoryCard(booking);
+                bookingHistory.appendChild(bookingCard);
+            });
+        }
+
+        // Create booking history card
+        function createBookingHistoryCard(booking) {
+            const packageInfo = servicePackages.find(p => p.id === booking.packageId);
+            const div = document.createElement('div');
+            div.className = 'booking-card';
+            div.innerHTML = `
+                <div class="booking-header">
+                    <h4>Booking #${booking.id}</h4>
+                    <span class="status-badge ${booking.status}">${booking.status.toUpperCase()}</span>
+                </div>
+                <div class="booking-details">
+                    <p><strong>Service:</strong> ${packageInfo.name}</p>
+                    <p><strong>Date:</strong> ${booking.date}</p>
+                    <p><strong>Time:</strong> ${booking.time}</p>
+                    <p><strong>Amount:</strong> ₹${booking.totalPrice}</p>
+                </div>
+                <div class="booking-actions">
+                    <button onclick="downloadBill(${booking.id})" class="btn btn-secondary">Download Bill</button>
+                    <button onclick="sendToWhatsApp(${booking.id})" class="btn btn-primary">Send to WhatsApp</button>
+                </div>
+            `;
+            return div;
+        }
+
+        // Proceed to checkout
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty', 'error');
+                return;
+            }
+            
+            // Scroll to booking section
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            showNotification('Please complete your service booking to checkout', 'info');
+        }
+
+        // Download bill
+        function downloadBill(bookingId = null) {
+            const bills = JSON.parse(localStorage.getItem('vishnuAutoBills')) || [];
+            const bill = bookingId ? bills.find(b => b.bookingId === bookingId) : bills[bills.length - 1];
+            
+            if (bill) {
+                generatePDF(bill);
+            } else {
+                showNotification('No bill found', 'error');
+            }
+        }
+
+        // Send booking to WhatsApp
+        function sendToWhatsApp(bookingId) {
+            const bookings = JSON.parse(localStorage.getItem('vishnuAutoBookings')) || [];
+            const booking = bookings.find(b => b.id === bookingId);
+            
+            if (booking) {
+                sendWhatsAppNotification(booking);
+            } else {
+                showNotification('Booking not found', 'error');
+            }
+        }
+    </script>
+
+    <style>
+        /* Customer Dashboard Specific Styles */
+        .booking-form {
+            background: var(--bg-medium);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .package-card {
+            background: var(--bg-dark);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .package-card.selected {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .package-price {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .package-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .package-features li {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .product-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .cart-container {
+            background: var(--bg-medium);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: var(--text-light);
+            opacity: 0.7;
+            font-size: 1.2rem;
+        }
+
+        .booking-card {
+            background: var(--bg-medium);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FFC107;
+        }
+
+        .status-badge.confirmed {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498DB;
+        }
+
+        .status-badge.completed {
+            background: rgba(39, 174, 96, 0.2);
+            color: #27AE60;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .booking-summary {
+            background: var(--bg-dark);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            color: var(--text-light);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-packages {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

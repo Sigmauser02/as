@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Vishnu Auto</title>
+    <link rel="stylesheet" href="css/styles.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">🏍️ Vishnu Auto</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="customer-dashboard.html" class="nav-link">Customer Portal</a></li>
+                <li><a href="index.html" class="nav-link">Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>🔐 Admin & Staff Login</h1>
+                    <p>Access your dashboard to manage operations</p>
+                </div>
+
+                <!-- Role Selection -->
+                <div class="role-selection">
+                    <h3>Select Your Role</h3>
+                    <div class="role-buttons">
+                        <button onclick="selectRole('admin')" class="role-btn active" data-role="admin">
+                            👨‍💼 Administrator
+                        </button>
+                        <button onclick="selectRole('mechanic')" class="role-btn" data-role="mechanic">
+                            👨‍🔧 Mechanic
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="login-form">
+                    <input type="hidden" name="role" id="selectedRole" value="admin">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" required 
+                               placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required 
+                               placeholder="Enter your password">
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary login-btn">
+                        <span class="btn-text">Login</span>
+                        <span class="loading" style="display: none;"></span>
+                    </button>
+                </form>
+
+                <!-- Demo Credentials -->
+                <div class="demo-credentials">
+                    <h4>Demo Credentials</h4>
+                    <div class="credential-box">
+                        <div class="credential-item">
+                            <strong>Admin:</strong> username: <code>admin</code>, password: <code>admin123</code>
+                        </div>
+                        <div class="credential-item">
+                            <strong>Mechanic:</strong> username: <code>mechanic</code>, password: <code>mech123</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Access Information -->
+                <div class="access-info">
+                    <h3>Access Levels</h3>
+                    <div class="access-levels">
+                        <div class="access-card">
+                            <h4>👨‍💼 Administrator</h4>
+                            <ul>
+                                <li>✓ Full product management</li>
+                                <li>✓ Service package management</li>
+                                <li>✓ Booking management</li>
+                                <li>✓ Staff assignment</li>
+                                <li>✓ Revenue tracking</li>
+                                <li>✓ Complete system control</li>
+                            </ul>
+                        </div>
+                        <div class="access-card">
+                            <h4>👨‍🔧 Mechanic</h4>
+                            <ul>
+                                <li>✓ View assigned jobs</li>
+                                <li>✓ Update job status</li>
+                                <li>✓ Add service notes</li>
+                                <li>✓ Request parts</li>
+                                <li>✓ View customer details</li>
+                                <li>✓ Limited access</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('errorModal')">&times;</span>
+            <h2>❌ Login Error</h2>
+            <p id="errorMessage">Invalid username or password</p>
+            <button onclick="closeModal('errorModal')" class="btn btn-primary">Try Again</button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Login Page Specific Functions
+        let selectedRole = 'admin';
+
+        // Select role function
+        function selectRole(role) {
+            selectedRole = role;
+            
+            // Update UI
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-role="${role}"]`).classList.add('active');
+            
+            // Update form hidden input
+            document.getElementById('selectedRole').value = role;
+            
+            // Update placeholder text based on role
+            const usernameInput = document.querySelector('input[name="username"]');
+            const passwordInput = document.querySelector('input[name="password"]');
+            
+            if (role === 'admin') {
+                usernameInput.placeholder = 'Enter admin username';
+                passwordInput.placeholder = 'Enter admin password';
+            } else {
+                usernameInput.placeholder = 'Enter mechanic username';
+                passwordInput.placeholder = 'Enter mechanic password';
+            }
+        }
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const username = formData.get('username');
+            const password = formData.get('password');
+            const role = formData.get('role');
+            
+            // Show loading state
+            const loginBtn = document.querySelector('.login-btn');
+            const btnText = loginBtn.querySelector('.btn-text');
+            const loadingSpinner = loginBtn.querySelector('.loading');
+            
+            btnText.style.display = 'none';
+            loadingSpinner.style.display = 'inline-block';
+            loginBtn.disabled = true;
+            
+            // Simulate authentication delay
+            setTimeout(() => {
+                // Authenticate user
+                const isAuthenticated = authenticateUser(username, password, role);
+                
+                if (isAuthenticated) {
+                    // Save user session
+                    const userData = {
+                        username: username,
+                        role: role,
+                        loginTime: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('vishnuAutoUser', JSON.stringify(userData));
+                    
+                    // Redirect based on role
+                    if (role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        window.location.href = 'mechanic-dashboard.html';
+                    }
+                } else {
+                    // Show error
+                    showError('Invalid username or password');
+                    
+                    // Reset button state
+                    btnText.style.display = 'inline';
+                    loadingSpinner.style.display = 'none';
+                    loginBtn.disabled = false;
+                }
+            }, 1000);
+        });
+
+        // Authenticate user function
+        function authenticateUser(username, password, role) {
+            // Demo credentials (in real app, this would be server-side)
+            const credentials = {
+                admin: { username: 'admin', password: 'admin123' },
+                mechanic: { username: 'mechanic', password: 'mech123' }
+            };
+            
+            return credentials[role] && 
+                   credentials[role].username === username && 
+                   credentials[role].password === password;
+        }
+
+        // Show error modal
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            openModal('errorModal');
+        }
+
+        // Handle forgot password
+        document.querySelector('.forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Please contact the system administrator to reset your password.');
+        });
+
+        // Handle remember me functionality
+        document.querySelector('input[name="remember"]').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                const username = document.querySelector('input[name="username"]').value;
+                if (username) {
+                    localStorage.setItem('vishnuAutoRememberedUser', JSON.stringify({
+                        username: username,
+                        role: selectedRole
+                    }));
+                }
+            } else {
+                localStorage.removeItem('vishnuAutoRememberedUser');
+            }
+        });
+
+        // Load remembered user if exists
+        window.addEventListener('load', function() {
+            const rememberedUser = localStorage.getItem('vishnuAutoRememberedUser');
+            if (rememberedUser) {
+                const user = JSON.parse(rememberedUser);
+                document.querySelector('input[name="username"]').value = user.username;
+                selectRole(user.role);
+                document.querySelector('input[name="remember"]').checked = true;
+            }
+        });
+
+        // Add enter key support for login
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const loginForm = document.getElementById('loginForm');
+                if (document.activeElement.form === loginForm) {
+                    loginForm.dispatchEvent(new Event('submit'));
+                }
+            }
+        });
+    </script>
+
+    <style>
+        /* Login Page Specific Styles */
+        .login-section {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+            margin-top: 80px;
+        }
+
+        .login-container {
+            background: var(--bg-medium);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            color: var(--text-light);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            opacity: 0.8;
+        }
+
+        .role-selection {
+            margin-bottom: 2rem;
+        }
+
+        .role-selection h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .role-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--text-light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .role-btn.active,
+        .role-btn:hover {
+            background: var(--primary-color);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        .login-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+        }
+
+        .forgot-password {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .demo-credentials {
+            background: var(--bg-dark);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .demo-credentials h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .credential-box {
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .credential-item {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .credential-item code {
+            background: var(--bg-medium);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            color: var(--primary-color);
+        }
+
+        .access-info {
+            margin-top: 2rem;
+        }
+
+        .access-info h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .access-levels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .access-card {
+            background: var(--bg-dark);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .access-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .access-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .access-card li {
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .role-buttons {
+                flex-direction: column;
+            }
+
+            .access-levels {
+                grid-template-columns: 1fr;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        /* Loading spinner animation */
+        .loading {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 2px solid var(--accent-color);
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>
